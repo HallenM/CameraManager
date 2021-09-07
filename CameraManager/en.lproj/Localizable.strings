@@ -1,0 +1,17 @@
+/*
+  Localizable.strings
+  CameraManager
+
+  Created by Moshkina on 07.09.2021.
+*/
+
+// Buttons localization
+"EnabledCameraButton" = "Enabled Camera";
+"EnabledMicrophoneButton" = "Enabled Microphone";
+
+// Alerts localization
+"AlertTitle" = "Error";
+"Settings" = "Settings";
+"Cancel" = "Cancel";
+"CameraReject" = "You rejected camera permission. Go to settings for changing it.";
+"MicrophoneReject" = "You rejected microphone permission. Go to settings for changing it.";

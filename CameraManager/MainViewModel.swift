@@ -42,7 +42,8 @@ extension  MainViewModel: ViewModelProtocol {
                 }
             }
         case .denied:
-            self.viewDelegate?.showAlert(self, title: "Error", message: "You rejected camera permission. Go to settings for changing it.")
+            self.viewDelegate?.showAlert(self, title: NSLocalizedString("AlertTitle", comment: "Title for error alert"),
+                                         message: NSLocalizedString("CameraReject", comment: "Description the alert"))
         default:
             return
         }
@@ -62,7 +63,8 @@ extension  MainViewModel: ViewModelProtocol {
                 }
             }
         } else if authorizationStatus == .denied {
-            self.viewDelegate?.showAlert(self, title: "Error", message: "You rejected microphone permission. Go to settings for changing it.")
+            self.viewDelegate?.showAlert(self, title: NSLocalizedString("AlertTitle", comment: "Title for error alert"),
+                                         message: NSLocalizedString("MicrophoneReject", comment: "Description the alert"))
         }
     }
     

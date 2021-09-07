@@ -16,6 +16,7 @@
 		F518447326E605C900C233EC /* CameraManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518447226E605C900C233EC /* CameraManagerTests.swift */; };
 		F518447E26E605C900C233EC /* CameraManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518447D26E605C900C233EC /* CameraManagerUITests.swift */; };
 		F518448C26E6122B00C233EC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518448B26E6122B00C233EC /* MainViewModel.swift */; };
+		F5B26A8D26E77758007B1EC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5B26A8F26E77758007B1EC9 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		F518447D26E605C900C233EC /* CameraManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManagerUITests.swift; sourceTree = "<group>"; };
 		F518447F26E605C900C233EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F518448B26E6122B00C233EC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F5B26A8C26E7768C007B1EC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		F5B26A8E26E77758007B1EC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +104,14 @@
 		F518445A26E605C700C233EC /* CameraManager */ = {
 			isa = PBXGroup;
 			children = (
+				F518446926E605C900C233EC /* Info.plist */,
+				F5B26A8A26E76E71007B1EC9 /* Resources */,
 				F518445B26E605C700C233EC /* AppDelegate.swift */,
 				F518445D26E605C700C233EC /* SceneDelegate.swift */,
 				F518445F26E605C700C233EC /* ViewController.swift */,
 				F518446126E605C700C233EC /* Main.storyboard */,
-				F518446426E605C900C233EC /* Assets.xcassets */,
-				F518446626E605C900C233EC /* LaunchScreen.storyboard */,
-				F518446926E605C900C233EC /* Info.plist */,
 				F518448B26E6122B00C233EC /* MainViewModel.swift */,
+				F5B26A8F26E77758007B1EC9 /* Localizable.strings */,
 			);
 			path = CameraManager;
 			sourceTree = "<group>";
@@ -129,6 +132,15 @@
 				F518447F26E605C900C233EC /* Info.plist */,
 			);
 			path = CameraManagerUITests;
+			sourceTree = "<group>";
+		};
+		F5B26A8A26E76E71007B1EC9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F518446426E605C900C233EC /* Assets.xcassets */,
+				F518446626E605C900C233EC /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F518446826E605C900C233EC /* LaunchScreen.storyboard in Resources */,
+				F5B26A8D26E77758007B1EC9 /* Localizable.strings in Resources */,
 				F518446526E605C900C233EC /* Assets.xcassets in Resources */,
 				F518446326E605C700C233EC /* Main.storyboard in Resources */,
 			);
@@ -304,6 +317,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F518446226E605C700C233EC /* Base */,
+				F5B26A8C26E7768C007B1EC9 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -314,6 +328,14 @@
 				F518446726E605C900C233EC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F5B26A8F26E77758007B1EC9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5B26A8E26E77758007B1EC9 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         viewModel?.viewDelegate = self
         
+        enabledCameraButton.setTitle(NSLocalizedString("EnabledCameraButton", comment: "Title for enable camera permission button"), for: .normal)
+        enabledMicrophoneButton.setTitle(NSLocalizedString("EnabledMicrophoneButton", comment: "Title for enable microphone permission button"), for: .normal)
+        
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         let microphoneAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         
@@ -46,7 +49,7 @@ class ViewController: UIViewController {
     private func createAlert(title: String, message: String) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: "Title for alert button settings"), style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
             
             UIApplication.shared.canOpenURL(settingsUrl)
@@ -54,7 +57,7 @@ class ViewController: UIViewController {
         }
         alertController.addAction(settingsAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Title for alert button cancel"), style: .default, handler: nil)
         alertController.addAction(cancelAction)
         
         return alertController
