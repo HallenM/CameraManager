@@ -10,14 +10,19 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    @IBOutlet private weak var previewView: UIView!
     @IBOutlet private weak var stackView: UIStackView!
+    
     @IBOutlet private weak var enabledCameraButton: UIButton!
     @IBOutlet private weak var enabledMicrophoneButton: UIButton!
     
-    private var viewModel: ViewModelProtocol? = MainViewModel()
+    @IBOutlet private weak var switchCameraTypeButton: UIButton!
+    
+    private var viewModel: ViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = MainViewModel()
         viewModel?.viewDelegate = self
         
         enabledCameraButton.setTitle(NSLocalizedString("EnabledCameraButton", comment: "Title for enable camera permission button"), for: .normal)
@@ -34,7 +39,15 @@ class ViewController: UIViewController {
             setButtonState(button: enabledCameraButton, authorizationStatus: cameraAuthorizationStatus)
             setButtonState(button: enabledMicrophoneButton, authorizationStatus: microphoneAuthorizationStatus)
         }
+    
         
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let orientation = UIDevice.current.orientation
+        
+        viewModel?.switchOrientation(orientation: orientation)
     }
     
     private func setButtonState(button: UIButton, authorizationStatus: AVAuthorizationStatus) {
@@ -63,6 +76,7 @@ class ViewController: UIViewController {
         return alertController
     }
     
+// MARK: IBActions
     @IBAction private func didTapEnabledCameraButton(_ sender: UIButton) {
         viewModel?.didTapEnabledCameraButton()
     }
@@ -70,8 +84,13 @@ class ViewController: UIViewController {
     @IBAction private func didTapEnabledMicrophoneButton(_ sender: UIButton) {
         viewModel?.didTapEnabledMicrophoneButton()
     }
+    
+    @IBAction func didTapSwitchCameraTypeButton(_ sender: UIButton) {
+        viewModel?.didTapSwitchCameraTypeButton()
+    }
 }
 
+// MARK: Extensions
 extension ViewController: ViewModelDisplayDelegate {
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String) {
         DispatchQueue.main.async {
@@ -96,5 +115,10 @@ extension ViewController: ViewModelDisplayDelegate {
         DispatchQueue.main.async {
             self.stackView.isHidden = true
         }
+    }
+    
+    func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer) {
+        previewLayer.frame = previewView.bounds
+        previewView.layer.addSublayer(previewLayer)
     }
 }

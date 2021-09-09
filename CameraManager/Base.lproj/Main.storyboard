@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,60 +18,92 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J4U-uD-Slc">
-                                <rect key="frame" x="15" y="399" width="384" height="108"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K51-el-Ngk" userLabel="PreviewView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIG-zy-nXI">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J4U-uD-Slc">
+                                        <rect key="frame" x="15" y="355" width="384" height="108"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIG-zy-nXI">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="f4L-by-W6l"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Enabled Camera">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapEnabledCameraButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="LYU-jo-3jc"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKs-rF-wbI">
+                                                <rect key="frame" x="0.0" y="64" width="384" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Enabled Microphone">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapEnabledMicrophoneButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="167-Ge-rKX"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="f4L-by-W6l"/>
+                                            <constraint firstItem="fKs-rF-wbI" firstAttribute="height" secondItem="RIG-zy-nXI" secondAttribute="height" id="Dmj-cL-9zJ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Enabled Camera">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="didTapEnabledCameraButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="LYU-jo-3jc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKs-rF-wbI">
-                                        <rect key="frame" x="0.0" y="64" width="384" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Enabled Microphone">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="didTapEnabledMicrophoneButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="167-Ge-rKX"/>
-                                        </connections>
-                                    </button>
+                                    </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="fKs-rF-wbI" firstAttribute="height" secondItem="RIG-zy-nXI" secondAttribute="height" id="Dmj-cL-9zJ"/>
+                                    <constraint firstItem="J4U-uD-Slc" firstAttribute="centerY" secondItem="K51-el-Ngk" secondAttribute="centerY" id="3oF-BQ-ppR"/>
+                                    <constraint firstAttribute="trailing" secondItem="J4U-uD-Slc" secondAttribute="trailing" constant="15" id="ooE-Pr-RYh"/>
+                                    <constraint firstItem="J4U-uD-Slc" firstAttribute="leading" secondItem="K51-el-Ngk" secondAttribute="leading" constant="15" id="ra3-Gl-9dX"/>
                                 </constraints>
-                            </stackView>
+                            </view>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4m-Ex-sFd" userLabel="Switch Camera Button">
+                                <rect key="frame" x="10" y="807" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="5qf-IJ-8fZ"/>
+                                    <constraint firstAttribute="height" constant="45" id="nI9-X7-5xD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" red="0.3220597245299251" green="0.54190718366858714" blue="0.67400867361383332" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="repeatIcons" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSwitchCameraTypeButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="vBP-xW-kd9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bs0-Kd-2eb"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="J4U-uD-Slc" firstAttribute="centerY" secondItem="bs0-Kd-2eb" secondAttribute="centerY" id="Dlh-he-x82"/>
-                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="trailing" secondItem="J4U-uD-Slc" secondAttribute="trailing" constant="15" id="HV8-hO-XHv"/>
-                            <constraint firstItem="J4U-uD-Slc" firstAttribute="leading" secondItem="bs0-Kd-2eb" secondAttribute="leading" constant="15" id="RBD-Ah-qgo"/>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="K51-el-Ngk" secondAttribute="bottom" id="L3X-vU-Tjh"/>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="n4m-Ex-sFd" secondAttribute="bottom" constant="10" id="ML8-pk-ZzM"/>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="trailing" secondItem="K51-el-Ngk" secondAttribute="trailing" id="ToA-th-dKg"/>
+                            <constraint firstItem="n4m-Ex-sFd" firstAttribute="leading" secondItem="bs0-Kd-2eb" secondAttribute="leading" constant="10" id="jhX-Aq-XVU"/>
+                            <constraint firstItem="K51-el-Ngk" firstAttribute="top" secondItem="bs0-Kd-2eb" secondAttribute="top" id="nf1-Wm-Wyy"/>
+                            <constraint firstItem="K51-el-Ngk" firstAttribute="leading" secondItem="bs0-Kd-2eb" secondAttribute="leading" id="v3t-8a-sfL"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="enabledCameraButton" destination="RIG-zy-nXI" id="1ir-sJ-9IR"/>
                         <outlet property="enabledMicrophoneButton" destination="fKs-rF-wbI" id="3Kk-qQ-mHt"/>
+                        <outlet property="previewView" destination="K51-el-Ngk" id="yUI-6K-er4"/>
                         <outlet property="stackView" destination="J4U-uD-Slc" id="c35-WO-WRX"/>
+                        <outlet property="switchCameraTypeButton" destination="n4m-Ex-sFd" id="9g5-jL-UMZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqU-Wg-iCx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-90" y="-1"/>
+            <point key="canvasLocation" x="-91.304347826086968" y="-1.3392857142857142"/>
         </scene>
     </scenes>
     <resources>
+        <image name="repeatIcons" width="48" height="48"/>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
