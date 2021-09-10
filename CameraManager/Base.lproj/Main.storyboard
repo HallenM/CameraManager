@@ -62,7 +62,7 @@
                                     <constraint firstItem="J4U-uD-Slc" firstAttribute="leading" secondItem="K51-el-Ngk" secondAttribute="leading" constant="15" id="ra3-Gl-9dX"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4m-Ex-sFd" userLabel="Switch Camera Button">
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4m-Ex-sFd" userLabel="Switch Camera Button">
                                 <rect key="frame" x="10" y="807" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="5qf-IJ-8fZ"/>
@@ -77,22 +77,49 @@
                                     <action selector="didTapSwitchCameraTypeButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="vBP-xW-kd9"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAu-dt-8C1">
+                                <rect key="frame" x="95" y="804" width="224" height="48"/>
+                                <color key="backgroundColor" red="0.20294445750000001" green="0.30511391160000001" blue="0.36471664910000001" alpha="0.5902731759207589" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Record" image="record"/>
+                                <connections>
+                                    <action selector="didTapRecordButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="nJ1-oq-BEE"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4JB-dw-Sq9" userLabel="Flashlight Button">
+                                <rect key="frame" x="359" y="807" width="45" height="45"/>
+                                <color key="tintColor" red="0.20294445750000001" green="0.30511391160000001" blue="0.36471664910000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="flashlight"/>
+                                <connections>
+                                    <action selector="didTapFlashlightButton:" destination="dKc-Ot-1wi" eventType="touchUpInside" id="KDH-MT-Y9H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bs0-Kd-2eb"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="4JB-dw-Sq9" secondAttribute="bottom" constant="10" id="3Nw-FZ-T8j"/>
+                            <constraint firstItem="4JB-dw-Sq9" firstAttribute="width" secondItem="n4m-Ex-sFd" secondAttribute="width" id="JGD-Sk-052"/>
                             <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="K51-el-Ngk" secondAttribute="bottom" id="L3X-vU-Tjh"/>
                             <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="n4m-Ex-sFd" secondAttribute="bottom" constant="10" id="ML8-pk-ZzM"/>
+                            <constraint firstItem="CAu-dt-8C1" firstAttribute="leading" secondItem="n4m-Ex-sFd" secondAttribute="trailing" constant="40" id="O9W-AL-CdE"/>
                             <constraint firstItem="bs0-Kd-2eb" firstAttribute="trailing" secondItem="K51-el-Ngk" secondAttribute="trailing" id="ToA-th-dKg"/>
+                            <constraint firstItem="4JB-dw-Sq9" firstAttribute="height" secondItem="n4m-Ex-sFd" secondAttribute="height" id="XKb-11-zfN"/>
                             <constraint firstItem="n4m-Ex-sFd" firstAttribute="leading" secondItem="bs0-Kd-2eb" secondAttribute="leading" constant="10" id="jhX-Aq-XVU"/>
                             <constraint firstItem="K51-el-Ngk" firstAttribute="top" secondItem="bs0-Kd-2eb" secondAttribute="top" id="nf1-Wm-Wyy"/>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="trailing" secondItem="4JB-dw-Sq9" secondAttribute="trailing" constant="10" id="qMU-xp-zOs"/>
                             <constraint firstItem="K51-el-Ngk" firstAttribute="leading" secondItem="bs0-Kd-2eb" secondAttribute="leading" id="v3t-8a-sfL"/>
+                            <constraint firstItem="bs0-Kd-2eb" firstAttribute="bottom" secondItem="CAu-dt-8C1" secondAttribute="bottom" constant="10" id="wvs-go-8Kl"/>
+                            <constraint firstItem="4JB-dw-Sq9" firstAttribute="leading" secondItem="CAu-dt-8C1" secondAttribute="trailing" constant="40" id="yNh-Ft-sHF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="enabledCameraButton" destination="RIG-zy-nXI" id="1ir-sJ-9IR"/>
                         <outlet property="enabledMicrophoneButton" destination="fKs-rF-wbI" id="3Kk-qQ-mHt"/>
+                        <outlet property="flashlightButton" destination="4JB-dw-Sq9" id="Uqk-yx-X0q"/>
                         <outlet property="previewView" destination="K51-el-Ngk" id="yUI-6K-er4"/>
+                        <outlet property="recordButton" destination="CAu-dt-8C1" id="yVW-V6-Ted"/>
                         <outlet property="stackView" destination="J4U-uD-Slc" id="c35-WO-WRX"/>
                         <outlet property="switchCameraTypeButton" destination="n4m-Ex-sFd" id="9g5-jL-UMZ"/>
                     </connections>
@@ -103,6 +130,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flashlight" width="50" height="50"/>
+        <image name="record" width="48" height="48"/>
         <image name="repeatIcons" width="48" height="48"/>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

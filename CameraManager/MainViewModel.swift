@@ -10,6 +10,7 @@ import AVFoundation
 
 protocol ViewModelProtocol: AnyObject {
     var viewDelegate: ViewModelDisplayDelegate? { get set }
+    var previewLayer: AVCaptureVideoPreviewLayer? { get }
     
     func didTapEnabledCameraButton()
     func didTapEnabledMicrophoneButton()
@@ -23,11 +24,16 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func cameraAndMicrophoneAccessGranted(_ sender: ViewModelProtocol)
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String)
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
+    func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
 }
 
 class MainViewModel {
     var viewDelegate: ViewModelDisplayDelegate?
     var cameraManager: CameraManager?
+    
+    var previewLayer: AVCaptureVideoPreviewLayer? {
+        return cameraManager?.previewLayer
+    }
     
     init() {
         do {
@@ -112,9 +118,9 @@ extension  MainViewModel: ViewModelProtocol {
     func switchOrientation(orientation: UIDeviceOrientation) {
         switch orientation {
         case .landscapeLeft:
-            cameraManager?.previewLayer.connection?.videoOrientation = .landscapeLeft
-        case .landscapeRight:
             cameraManager?.previewLayer.connection?.videoOrientation = .landscapeRight
+        case .landscapeRight:
+            cameraManager?.previewLayer.connection?.videoOrientation = .landscapeLeft
         case .portrait:
             cameraManager?.previewLayer.connection?.videoOrientation = .portrait
         case .portraitUpsideDown:
@@ -124,7 +130,7 @@ extension  MainViewModel: ViewModelProtocol {
         }
         
         guard let previewLayer = cameraManager?.previewLayer else { return }
-        viewDelegate?.showPreview(self, previewLayer: previewLayer)
+        viewDelegate?.didChangeCameraOrientation(self, previewLayer: previewLayer)
     }
 }
 

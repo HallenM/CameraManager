@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet private weak var enabledMicrophoneButton: UIButton!
     
     @IBOutlet private weak var switchCameraTypeButton: UIButton!
+    @IBOutlet private weak var flashlightButton: UIButton!
+    @IBOutlet private weak var recordButton: UIButton!
     
     private var viewModel: ViewModelProtocol?
     
@@ -47,7 +49,12 @@ class ViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         let orientation = UIDevice.current.orientation
         
-        viewModel?.switchOrientation(orientation: orientation)
+        coordinator.animate { _ in
+            DispatchQueue.main.async {
+                self.viewModel?.previewLayer?.removeAllAnimations()
+                self.viewModel?.switchOrientation(orientation: orientation)
+            }
+        }
     }
     
     private func setButtonState(button: UIButton, authorizationStatus: AVAuthorizationStatus) {
@@ -85,8 +92,14 @@ class ViewController: UIViewController {
         viewModel?.didTapEnabledMicrophoneButton()
     }
     
-    @IBAction func didTapSwitchCameraTypeButton(_ sender: UIButton) {
+    @IBAction private func didTapSwitchCameraTypeButton(_ sender: UIButton) {
         viewModel?.didTapSwitchCameraTypeButton()
+    }
+    
+    @IBAction private func didTapFlashlightButton(_ sender: UIButton) {
+    }
+    
+    @IBAction private func didTapRecordButton(_ sender: UIButton) {
     }
 }
 
@@ -118,7 +131,15 @@ extension ViewController: ViewModelDisplayDelegate {
     }
     
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer) {
-        previewLayer.frame = previewView.bounds
+        previewLayer.frame = previewView.layer.bounds
         previewView.layer.addSublayer(previewLayer)
+        
+        switchCameraTypeButton.isHidden = false
+        flashlightButton.isHidden = false
+        recordButton.isHidden = false
+    }
+    
+    func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer) {
+        previewLayer.frame = previewView.layer.bounds
     }
 }
