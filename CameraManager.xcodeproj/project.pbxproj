@@ -20,6 +20,7 @@
 		F52FFC6526E9C738008C54C3 /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FFC6426E9C738008C54C3 /* CameraError.swift */; };
 		F52FFC6726E9CCDB008C54C3 /* CameraInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */; };
 		F5B26A8D26E77758007B1EC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5B26A8F26E77758007B1EC9 /* Localizable.strings */; };
+		F5CD9ED226EF666400F1493C /* VideoWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CD9ED126EF666400F1493C /* VideoWriter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInputDevice.swift; sourceTree = "<group>"; };
 		F5B26A8C26E7768C007B1EC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		F5B26A8E26E77758007B1EC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F5CD9ED126EF666400F1493C /* VideoWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWriter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				F50D9F2826E8A7CE00BDDC65 /* CameraManager.swift */,
 				F52FFC6426E9C738008C54C3 /* CameraError.swift */,
 				F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */,
+				F5CD9ED126EF666400F1493C /* VideoWriter.swift */,
 			);
 			path = CameraManager;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5CD9ED226EF666400F1493C /* VideoWriter.swift in Sources */,
 				F518446026E605C700C233EC /* ViewController.swift in Sources */,
 				F52FFC6726E9CCDB008C54C3 /* CameraInputDevice.swift in Sources */,
 				F518445C26E605C700C233EC /* AppDelegate.swift in Sources */,

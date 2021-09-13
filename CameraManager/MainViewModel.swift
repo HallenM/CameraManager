@@ -15,6 +15,7 @@ protocol ViewModelProtocol: AnyObject {
     func didTapEnabledCameraButton()
     func didTapEnabledMicrophoneButton()
     func didTapSwitchCameraTypeButton()
+    func didTapFlashlightButton()
     func switchOrientation(orientation: UIDeviceOrientation)
 }
 
@@ -25,6 +26,8 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String)
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
+    func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
+    func changeFlashlightButtonColor(_ sender: ViewModelProtocol)
 }
 
 class MainViewModel {
@@ -34,6 +37,8 @@ class MainViewModel {
     var previewLayer: AVCaptureVideoPreviewLayer? {
         return cameraManager?.previewLayer
     }
+    
+    private var isFlashLightOn = false
     
     init() {
         do {
@@ -110,8 +115,18 @@ extension  MainViewModel: ViewModelProtocol {
     func didTapSwitchCameraTypeButton() {
         do {
             try cameraManager?.flipCaptureDevicePosition()
+            if let isFrontCamera = cameraManager?.isFrontCamera() {
+                viewDelegate?.showFlashlight(self, isFrontCamera: isFrontCamera)
+            }
         } catch {
             print(error)
+        }
+    }
+    
+    func didTapFlashlightButton() {
+        guard let cameraManager = cameraManager else { return }
+        if cameraManager.toggleFlashlight(force: true) {
+            viewDelegate?.changeFlashlightButtonColor(self)
         }
     }
     
@@ -137,6 +152,11 @@ extension  MainViewModel: ViewModelProtocol {
 extension MainViewModel: CameraCaptureDelegate {
     func cameraCaptureDidStart(_ capture: CameraManager) {
         viewDelegate?.showPreview(self, previewLayer: capture.previewLayer)
+        if capture.isFrontCamera() {
+            viewDelegate?.showFlashlight(self, isFrontCamera: true)
+        } else {
+            viewDelegate?.showFlashlight(self, isFrontCamera: false)
+        }
     }
     
     func cameraCaptureDidStop(_ capture: CameraManager) {

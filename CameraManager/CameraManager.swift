@@ -26,9 +26,13 @@ class CameraManager: NSObject {
     
     private(set) var session: AVCaptureSession?
     
+    var videoWriter: VideoWriter?
+    
     var isRunning: Bool {
         return session?.isRunning ?? false
     }
+    
+    private var isFlashlightOn: Bool = false
     
     private var videoDataOutput: AVCaptureVideoDataOutput {
         let output = AVCaptureVideoDataOutput()
@@ -198,14 +202,84 @@ class CameraManager: NSObject {
     
     func flipCaptureDevicePosition() throws {
         self.devicePosition = self.devicePosition == .back ? .front : .back
+        
         try setVideoInputs()
+        
+        if !isFrontCamera() {
+            if !toggleFlashlight() {
+                throw CameraError(code: -2000, description: "Problem with flashlight")
+            }
+        }
+    }
+    
+    func isFrontCamera() -> Bool {
+        return devicePosition == .front
+    }
+    
+    func toggleFlashlight(force: Bool = false) -> Bool {
+        guard let session = session else {
+            return false
+        }
+        
+        var isSucceed = false
+        
+        session.beginConfiguration()
+        
+        if let videoDevice = videoDevice, videoDevice.hasTorch && videoDevice.isTorchAvailable {
+            do {
+                try videoDevice.lockForConfiguration()
+                if force {
+                    isFlashlightOn = !isFlashlightOn
+                }
+                
+                videoDevice.torchMode = (!isFrontCamera() && isFlashlightOn) ? .on : .off
+                
+                videoDevice.unlockForConfiguration()
+                isSucceed = true
+            } catch let error {
+                print("Failed to set up torch level with error \(error)")
+                isSucceed =  false
+            }
+        }
+        
+        session.commitConfiguration()
+        
+        return isSucceed
     }
 }
 
 extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput,
+                       didOutput sampleBuffer: CMSampleBuffer,
+                       from connection: AVCaptureConnection) {
+        guard let formatDesc = CMSampleBufferGetFormatDescription(sampleBuffer) else { return }
+        let mediaType = CMFormatDescriptionGetMediaType(formatDesc)
+        if mediaType == kCMMediaType_Audio {
+            handleAudioSampleBuffer(buffer: sampleBuffer)
+        } else if mediaType == kCMMediaType_Video {
+            handleVideoSampleBuffer(buffer: sampleBuffer)
+        }
+    }
     
+    private func handleVideoSampleBuffer(buffer: CMSampleBuffer) {
+        guard self.isRunning else {
+            return
+        }
+        
+        let sampleTime = CMSampleBufferGetPresentationTimeStamp(buffer)
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer),
+              let pixelBufferPool = videoWriter?.assetWriterInputPixelBufferAdaptor?.pixelBufferPool,
+              
+        
+        try? self.videoWriter?.addPixelBuffer(burnedBuffer, sampleTime: sampleTime)
+    }
 }
 
 extension CameraManager: AVCaptureAudioDataOutputSampleBufferDelegate {
-    
+    private func handleAudioSampleBuffer(buffer: CMSampleBuffer) {
+        guard self.isRunning else {
+            return
+        }
+        try? self.videoWriter?.addAudioSampleBuffer(buffer)
+    }
 }

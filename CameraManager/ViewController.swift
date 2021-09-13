@@ -97,6 +97,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func didTapFlashlightButton(_ sender: UIButton) {
+        viewModel?.didTapFlashlightButton()
     }
     
     @IBAction private func didTapRecordButton(_ sender: UIButton) {
@@ -135,8 +136,24 @@ extension ViewController: ViewModelDisplayDelegate {
         previewView.layer.addSublayer(previewLayer)
         
         switchCameraTypeButton.isHidden = false
-        flashlightButton.isHidden = false
         recordButton.isHidden = false
+    }
+    
+    func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool) {
+        if isFrontCamera {
+            flashlightButton.isHidden = true
+        } else {
+            flashlightButton.isHidden = false
+        }
+    }
+    
+    func changeFlashlightButtonColor(_ sender: ViewModelProtocol) {
+        let color = flashlightButton.tintColor
+        if color == UIColor(named: "flashOn") {
+            flashlightButton.tintColor = UIColor(named: "flashOff")
+        } else {
+            flashlightButton.tintColor = UIColor(named: "flashOn")
+        }
     }
     
     func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer) {
