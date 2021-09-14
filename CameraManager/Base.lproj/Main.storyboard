@@ -129,14 +129,44 @@
             </objects>
             <point key="canvasLocation" x="-91.304347826086968" y="-1.3392857142857142"/>
         </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="l2P-7N-pJZ">
+            <objects>
+                <viewController storyboardIdentifier="ModalViewController" id="oBF-t6-Eht" customClass="ModalViewController" customModule="CameraManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cV2-Bt-0iK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlA-Ro-4ZD" customClass="Mo">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tfm-tD-Qbs"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tfm-tD-Qbs" firstAttribute="bottom" secondItem="ZlA-Ro-4ZD" secondAttribute="bottom" id="aLr-lH-Z0y"/>
+                            <constraint firstItem="tfm-tD-Qbs" firstAttribute="trailing" secondItem="ZlA-Ro-4ZD" secondAttribute="trailing" id="nNL-Kh-HN5"/>
+                            <constraint firstItem="ZlA-Ro-4ZD" firstAttribute="leading" secondItem="tfm-tD-Qbs" secondAttribute="leading" id="nc2-V3-PUY"/>
+                            <constraint firstItem="ZlA-Ro-4ZD" firstAttribute="top" secondItem="tfm-tD-Qbs" secondAttribute="top" id="ttD-dY-TR0"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ygx-GI-eUK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="-1"/>
+        </scene>
     </scenes>
     <resources>
         <image name="flashlight" width="50" height="50"/>
         <image name="record" width="48" height="48"/>
         <image name="repeatIcons" width="48" height="48"/>
         <namedColor name="flashOff">
-            <color red="0.20294445750000001" green="0.30511391160000001" blue="0.36471664910000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.20299999415874481" green="0.30500000715255737" blue="0.36500000953674316" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

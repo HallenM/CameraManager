@@ -11,11 +11,13 @@ import AVFoundation
 protocol ViewModelProtocol: AnyObject {
     var viewDelegate: ViewModelDisplayDelegate? { get set }
     var previewLayer: AVCaptureVideoPreviewLayer? { get }
+//    var videoSize: CGSize? { get set }
     
     func didTapEnabledCameraButton()
     func didTapEnabledMicrophoneButton()
     func didTapSwitchCameraTypeButton()
     func didTapFlashlightButton()
+    func didTapRecordButton()
     func switchOrientation(orientation: UIDeviceOrientation)
 }
 
@@ -24,19 +26,27 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func changeMicrophoneButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
     func cameraAndMicrophoneAccessGranted(_ sender: ViewModelProtocol)
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String)
+    
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
-    func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
-    func changeFlashlightButtonColor(_ sender: ViewModelProtocol)
+    func showVideo(_ sender: ViewModelProtocol, url: URL)
+    
+    func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
+    func didFlashlightChangeMode(_ sender: ViewModelProtocol)
+    func didChangeRecordState(_ sender: ViewModelProtocol, isRecording: Bool)
 }
 
 class MainViewModel {
     var viewDelegate: ViewModelDisplayDelegate?
     var cameraManager: CameraManager?
+    var videoWriter: VideoWriter?
     
     var previewLayer: AVCaptureVideoPreviewLayer? {
         return cameraManager?.previewLayer
     }
+    
+//    var videoSize: CGSize?
+    var isRecording: Bool = false
     
     private var isFlashLightOn = false
     
@@ -49,10 +59,14 @@ class MainViewModel {
             print(CameraError(code: 404,
                               description: "CameraManager cannot initialized"))
         }
+        videoWriter = VideoWriter()
+        videoWriter?.delegate = self
+        cameraManager?.videoWriter = videoWriter
     }
 }
 
 extension  MainViewModel: ViewModelProtocol {
+    // MARK: IBActions
     func didTapEnabledCameraButton() {
         let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         
@@ -99,19 +113,6 @@ extension  MainViewModel: ViewModelProtocol {
         }
     }
     
-    private func checkCameraAndMicAuthorization() {
-        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized && AVCaptureDevice.authorizationStatus(for: .audio) == .authorized {
-            viewDelegate?.cameraAndMicrophoneAccessGranted(self)
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
-                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-                try cameraManager?.start()
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
     func didTapSwitchCameraTypeButton() {
         do {
             try cameraManager?.flipCaptureDevicePosition()
@@ -126,7 +127,33 @@ extension  MainViewModel: ViewModelProtocol {
     func didTapFlashlightButton() {
         guard let cameraManager = cameraManager else { return }
         if cameraManager.toggleFlashlight(force: true) {
-            viewDelegate?.changeFlashlightButtonColor(self)
+            viewDelegate?.didFlashlightChangeMode(self)
+        }
+    }
+    
+    func didTapRecordButton() {
+        isRecording = !isRecording
+        if isRecording {
+            let uuidString = UUID().uuidString
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let url = documentDirectory.appendingPathComponent("\(uuidString).mp4")
+            
+            videoWriter?.startRecording(to: url)
+        } else {
+            videoWriter?.stopRecording()
+        }
+    }
+    
+    private func checkCameraAndMicAuthorization() {
+        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized && AVCaptureDevice.authorizationStatus(for: .audio) == .authorized {
+            viewDelegate?.cameraAndMicrophoneAccessGranted(self)
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                try cameraManager?.start()
+            } catch {
+                print(error)
+            }
         }
     }
     
@@ -160,6 +187,21 @@ extension MainViewModel: CameraCaptureDelegate {
     }
     
     func cameraCaptureDidStop(_ capture: CameraManager) {
+        
+    }
+}
+
+extension MainViewModel: VideoWriterDelegate {
+    func didBeginWriting(_ videoWriter: VideoWriter) {
+        viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+    }
+    
+    func videoWriter(_ videoWriter: VideoWriter, didStopWritingVideoTo url: URL) {
+        viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+        viewDelegate?.showVideo(self, url: url)
+    }
+    
+    func videoWriter(_ videoWriter: VideoWriter, didFailedWritingVideoWith error: Error) {
         
     }
 }

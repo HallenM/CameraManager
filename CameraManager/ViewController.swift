@@ -101,6 +101,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func didTapRecordButton(_ sender: UIButton) {
+        viewModel?.didTapRecordButton()
     }
 }
 
@@ -135,6 +136,8 @@ extension ViewController: ViewModelDisplayDelegate {
         previewLayer.frame = previewView.layer.bounds
         previewView.layer.addSublayer(previewLayer)
         
+//        viewModel?.videoSize = previewLayer.frame.size
+        
         switchCameraTypeButton.isHidden = false
         recordButton.isHidden = false
     }
@@ -147,7 +150,11 @@ extension ViewController: ViewModelDisplayDelegate {
         }
     }
     
-    func changeFlashlightButtonColor(_ sender: ViewModelProtocol) {
+    func showVideo(_ sender: ViewModelProtocol, url: URL) {
+        guard let modalViewController = storyboard?.instantiateViewController(identifier: "ModalViewController") as? ModalViewController else { return }
+    }
+    
+    func didFlashlightChangeMode(_ sender: ViewModelProtocol) {
         let color = flashlightButton.tintColor
         if color == UIColor(named: "flashOn") {
             flashlightButton.tintColor = UIColor(named: "flashOff")
@@ -158,5 +165,14 @@ extension ViewController: ViewModelDisplayDelegate {
     
     func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer) {
         previewLayer.frame = previewView.layer.bounds
+//        viewModel?.videoSize = previewLayer.frame.size
+    }
+    
+    func didChangeRecordState(_ sender: ViewModelProtocol, isRecording: Bool) {
+        if isRecording {
+            recordButton.setTitle("Stop", for: .normal)
+        } else {
+            recordButton.setTitle("Record", for: .normal)
+        }
     }
 }

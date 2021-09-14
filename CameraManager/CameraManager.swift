@@ -26,7 +26,7 @@ class CameraManager: NSObject {
     
     private(set) var session: AVCaptureSession?
     
-    var videoWriter: VideoWriter?
+    weak var videoWriter: VideoWriter?
     
     var isRunning: Bool {
         return session?.isRunning ?? false
@@ -267,11 +267,11 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         let sampleTime = CMSampleBufferGetPresentationTimeStamp(buffer)
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer),
-              let pixelBufferPool = videoWriter?.assetWriterInputPixelBufferAdaptor?.pixelBufferPool,
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) else { return }
+              
               
         
-        try? self.videoWriter?.addPixelBuffer(burnedBuffer, sampleTime: sampleTime)
+        try? self.videoWriter?.addPixelBuffer(pixelBuffer, sampleTime: sampleTime)
     }
 }
 

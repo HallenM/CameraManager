@@ -17,6 +17,8 @@
 		F518447326E605C900C233EC /* CameraManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518447226E605C900C233EC /* CameraManagerTests.swift */; };
 		F518447E26E605C900C233EC /* CameraManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518447D26E605C900C233EC /* CameraManagerUITests.swift */; };
 		F518448C26E6122B00C233EC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F518448B26E6122B00C233EC /* MainViewModel.swift */; };
+		F51E603726F0B0A30064F1B9 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51E603626F0B0A30064F1B9 /* ModalViewController.swift */; };
+		F51E603926F0B0B50064F1B9 /* ModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51E603826F0B0B50064F1B9 /* ModalViewModel.swift */; };
 		F52FFC6526E9C738008C54C3 /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FFC6426E9C738008C54C3 /* CameraError.swift */; };
 		F52FFC6726E9CCDB008C54C3 /* CameraInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */; };
 		F5B26A8D26E77758007B1EC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5B26A8F26E77758007B1EC9 /* Localizable.strings */; };
@@ -57,6 +59,8 @@
 		F518447D26E605C900C233EC /* CameraManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManagerUITests.swift; sourceTree = "<group>"; };
 		F518447F26E605C900C233EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F518448B26E6122B00C233EC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F51E603626F0B0A30064F1B9 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		F51E603826F0B0B50064F1B9 /* ModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewModel.swift; sourceTree = "<group>"; };
 		F52FFC6426E9C738008C54C3 /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
 		F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInputDevice.swift; sourceTree = "<group>"; };
 		F5B26A8C26E7768C007B1EC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 				F52FFC6426E9C738008C54C3 /* CameraError.swift */,
 				F52FFC6626E9CCDB008C54C3 /* CameraInputDevice.swift */,
 				F5CD9ED126EF666400F1493C /* VideoWriter.swift */,
+				F51E603626F0B0A30064F1B9 /* ModalViewController.swift */,
+				F51E603826F0B0B50064F1B9 /* ModalViewModel.swift */,
 			);
 			path = CameraManager;
 			sourceTree = "<group>";
@@ -288,11 +294,13 @@
 			files = (
 				F5CD9ED226EF666400F1493C /* VideoWriter.swift in Sources */,
 				F518446026E605C700C233EC /* ViewController.swift in Sources */,
+				F51E603926F0B0B50064F1B9 /* ModalViewModel.swift in Sources */,
 				F52FFC6726E9CCDB008C54C3 /* CameraInputDevice.swift in Sources */,
 				F518445C26E605C700C233EC /* AppDelegate.swift in Sources */,
 				F518445E26E605C700C233EC /* SceneDelegate.swift in Sources */,
 				F518448C26E6122B00C233EC /* MainViewModel.swift in Sources */,
 				F50D9F2926E8A7CE00BDDC65 /* CameraManager.swift in Sources */,
+				F51E603726F0B0A30064F1B9 /* ModalViewController.swift in Sources */,
 				F52FFC6526E9C738008C54C3 /* CameraError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

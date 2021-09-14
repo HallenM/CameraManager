@@ -44,7 +44,7 @@ final class VideoWriter {
     
     private var isStartRecording: Bool = false
     
-    init(frameSize: CGSize) {
+    init(frameSize: CGSize = CGSize(width: 1280, height: 720)) {
         currentVideoDimensions = CMVideoDimensions(
             width: Int32(frameSize.width),
             height: Int32(frameSize.height)
@@ -196,7 +196,7 @@ private extension VideoWriter {
     func internalSetup(outputURL: URL) throws {
         try? FileManager.default.removeItem(at: outputURL)
         
-        let newAssetWriter = try AVAssetWriter(url: outputURL, fileType: .mov)
+        let newAssetWriter = try AVAssetWriter(url: outputURL, fileType: .mp4)
         
         let newAssetWriterVideoInput = self.makeAssetWriterVideoInput()
         guard newAssetWriter.canAdd(newAssetWriterVideoInput) else {
