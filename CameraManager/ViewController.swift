@@ -152,6 +152,13 @@ extension ViewController: ViewModelDisplayDelegate {
     
     func showVideo(_ sender: ViewModelProtocol, url: URL) {
         guard let modalViewController = storyboard?.instantiateViewController(identifier: "ModalViewController") as? ModalViewController else { return }
+        modalViewController.modalPresentationStyle = .overFullScreen
+        
+        let modalViewModel = ModalViewModel(url: url)
+        
+        modalViewController.modalViewModel = modalViewModel
+        
+        self.present(modalViewController, animated: true, completion: nil)
     }
     
     func didFlashlightChangeMode(_ sender: ViewModelProtocol) {

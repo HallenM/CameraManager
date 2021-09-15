@@ -158,21 +158,26 @@ extension  MainViewModel: ViewModelProtocol {
     }
     
     func switchOrientation(orientation: UIDeviceOrientation) {
-        switch orientation {
-        case .landscapeLeft:
-            cameraManager?.previewLayer.connection?.videoOrientation = .landscapeRight
-        case .landscapeRight:
-            cameraManager?.previewLayer.connection?.videoOrientation = .landscapeLeft
-        case .portrait:
-            cameraManager?.previewLayer.connection?.videoOrientation = .portrait
-        case .portraitUpsideDown:
-            cameraManager?.previewLayer.connection?.videoOrientation = .portraitUpsideDown
-        default:
-            return
-        }
+        let cameramManagerOrientation = convertOrientation(orientation: orientation)
+        cameraManager?.changeOrientation(orientation: cameramManagerOrientation)
         
         guard let previewLayer = cameraManager?.previewLayer else { return }
         viewDelegate?.didChangeCameraOrientation(self, previewLayer: previewLayer)
+    }
+    
+    func convertOrientation(orientation: UIDeviceOrientation) -> AVCaptureVideoOrientation {
+        switch orientation {
+        case .landscapeLeft:
+            return .landscapeRight
+        case .landscapeRight:
+            return .landscapeLeft
+        case .portrait:
+            return .portrait
+        case .portraitUpsideDown:
+            return .portraitUpsideDown
+        default:
+            return .portrait
+        }
     }
 }
 

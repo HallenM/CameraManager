@@ -7,11 +7,14 @@
 
 import UIKit
 
-protocol ModalViewModelDisplayDelegate: AnyObject {
-    
-}
-
 class ModalViewModel {
-    weak var viewDelegate: ModalViewModelDisplayDelegate?
-    var url: URL?
+    var url: URL
+    
+    init(url: URL) {
+        self.url = url
+    }
+    
+    func getUrl() -> URL {
+        return url
+    }
 }
