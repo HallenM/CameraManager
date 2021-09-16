@@ -8,36 +8,9 @@
 import UIKit
 import AVFoundation
 
-protocol ViewModelProtocol: AnyObject {
-    var viewDelegate: ViewModelDisplayDelegate? { get set }
-    var previewLayer: AVCaptureVideoPreviewLayer? { get }
-//    var videoSize: CGSize? { get set }
-    
-    func didTapEnabledCameraButton()
-    func didTapEnabledMicrophoneButton()
-    func didTapSwitchCameraTypeButton()
-    func didTapFlashlightButton()
-    func didTapRecordButton()
-    func switchOrientation(orientation: UIDeviceOrientation)
-}
-
-protocol ViewModelDisplayDelegate: AnyObject {
-    func changeCameraButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
-    func changeMicrophoneButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
-    func cameraAndMicrophoneAccessGranted(_ sender: ViewModelProtocol)
-    func showAlert(_ sender: ViewModelProtocol, title: String, message: String)
-    
-    func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
-    func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
-    func showVideo(_ sender: ViewModelProtocol, url: URL)
-    
-    func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
-    func didFlashlightChangeMode(_ sender: ViewModelProtocol)
-    func didChangeRecordState(_ sender: ViewModelProtocol, isRecording: Bool)
-}
-
 class MainViewModel {
-    var viewDelegate: ViewModelDisplayDelegate?
+    weak var viewDelegate: ViewModelDisplayDelegate?
+    
     var cameraManager: CameraManager?
     var videoWriter: VideoWriter?
     
@@ -45,7 +18,6 @@ class MainViewModel {
         return cameraManager?.previewLayer
     }
     
-//    var videoSize: CGSize?
     var isRecording: Bool = false
     
     private var isFlashLightOn = false

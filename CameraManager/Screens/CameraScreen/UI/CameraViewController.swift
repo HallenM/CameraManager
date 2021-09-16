@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class CameraViewController: UIViewController {
     
     @IBOutlet private weak var previewView: UIView!
     @IBOutlet private weak var stackView: UIStackView!
@@ -20,15 +20,15 @@ class ViewController: UIViewController {
     @IBOutlet private weak var flashlightButton: UIButton!
     @IBOutlet private weak var recordButton: UIButton!
     
-    private var viewModel: ViewModelProtocol?
+    var viewModel: ViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = MainViewModel()
-        viewModel?.viewDelegate = self
         
-        enabledCameraButton.setTitle(NSLocalizedString("EnabledCameraButton", comment: "Title for enable camera permission button"), for: .normal)
-        enabledMicrophoneButton.setTitle(NSLocalizedString("EnabledMicrophoneButton", comment: "Title for enable microphone permission button"), for: .normal)
+        enabledCameraButton.setTitle(NSLocalizedString("EnabledCameraButton",
+                                                       comment: "Title for enable camera permission button"), for: .normal)
+        enabledMicrophoneButton.setTitle(NSLocalizedString("EnabledMicrophoneButton",
+                                                           comment: "Title for enable microphone permission button"), for: .normal)
         
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         let microphoneAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
@@ -41,8 +41,6 @@ class ViewController: UIViewController {
             setButtonState(button: enabledCameraButton, authorizationStatus: cameraAuthorizationStatus)
             setButtonState(button: enabledMicrophoneButton, authorizationStatus: microphoneAuthorizationStatus)
         }
-    
-        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -69,7 +67,8 @@ class ViewController: UIViewController {
     private func createAlert(title: String, message: String) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: "Title for alert button settings"), style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings",
+                                                                    comment: "Title for alert button settings"), style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
             
             UIApplication.shared.canOpenURL(settingsUrl)
@@ -106,7 +105,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: Extensions
-extension ViewController: ViewModelDisplayDelegate {
+extension CameraViewController: ViewModelDisplayDelegate {
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String) {
         DispatchQueue.main.async {
             let alertController = self.createAlert(title: title, message: message)

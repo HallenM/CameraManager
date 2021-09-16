@@ -309,8 +309,6 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let sampleTime = CMSampleBufferGetPresentationTimeStamp(buffer)
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) else { return }
               
-              
-        
         try? self.videoWriter?.addPixelBuffer(pixelBuffer, sampleTime: sampleTime)
     }
 }
