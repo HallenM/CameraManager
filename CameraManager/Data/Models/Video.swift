@@ -15,12 +15,12 @@ class Video: NSManagedObject {
     @NSManaged var url: URL?
     @NSManaged var thumbnail: Data?
     
-    init (id: String, creationAt: Date, url: URL, thumbnail: Data) {
-        super.init()
-        
-        self.id = id
-        self.creationAt = creationAt
-        self.url = url
-        self.thumbnail = thumbnail
-    }
+//    init (id: String, creationAt: Date, url: URL, thumbnail: Data) {
+//        super.init()
+//        
+//        self.id = id
+//        self.creationAt = creationAt
+//        self.url = url
+//        self.thumbnail = thumbnail
+//    }
 }
