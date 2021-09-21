@@ -2,7 +2,7 @@
 //  Video+CoreDataClass.swift
 //  CameraManager
 //
-//  Created by Moshkina on 17.09.2021.
+//  Created by Moshkina on 21.09.2021.
 //
 //
 

@@ -44,23 +44,6 @@ class CameraManager: NSObject {
         output.alwaysDiscardsLateVideoFrames = true
         output.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: .userInitiated))
         
-//        if let videoConnection = output.connection(with: .video) {
-//            if videoConnection.isVideoMirroringSupported {
-//                videoConnection.automaticallyAdjustsVideoMirroring = false
-//                videoConnection.isVideoMirrored = true
-//            }
-//        }
-        
-//        if isFrontCamera() {
-//            if let videoOutput = session?.outputs.first(where: { ($0 as? AVCaptureVideoDataOutput) != nil}),
-//               let videoConnection = videoOutput.connection(with: .video) {
-//                if videoConnection.isVideoMirroringSupported {
-//                    videoConnection.automaticallyAdjustsVideoMirroring = false
-//                    videoConnection.isVideoMirrored = true
-//                }
-//            }
-//        }
-        
         return output
     }
     

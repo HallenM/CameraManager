@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class MainViewModel {
     weak var viewDelegate: ViewModelDisplayDelegate?
@@ -21,6 +22,8 @@ class MainViewModel {
     var isRecording: Bool = false
     
     private var isFlashLightOn = false
+    
+    private var uuidString: String = ""
     
     init() {
         do {
@@ -106,7 +109,7 @@ extension  MainViewModel: ViewModelProtocol {
     func didTapRecordButton() {
         isRecording = !isRecording
         if isRecording {
-            let uuidString = UUID().uuidString
+            uuidString = UUID().uuidString
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let url = documentDirectory.appendingPathComponent("\(uuidString).mp4")
             
@@ -175,7 +178,42 @@ extension MainViewModel: VideoWriterDelegate {
     
     func videoWriter(_ videoWriter: VideoWriter, didStopWritingVideoTo url: URL) {
         viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
-        viewDelegate?.showVideo(self, url: url)
+//        viewDelegate?.showVideo(self, url: url)
+        
+        ThumbnailGenerator.shared.generateThumbnailRepresentations(url: url) { result in
+            if result {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    let context = appDelegate.persistentContainer.viewContext
+                    
+                    let video = Video(context: context)
+                    video.creationAt = Date()
+                    video.id = self.uuidString
+                    
+                    if let thumbnail = ThumbnailGenerator.shared.thumbnailImage {
+                        video.thumbnail = thumbnail.toData()
+                    } else {
+                        video.thumbnail = Data()
+                    }
+                    
+                    video.url = url
+                    
+                    appDelegate.saveContext(backgroundContext: context)
+                    
+                    do {
+                        let fetchRequest: NSFetchRequest<Video> = Video.fetchRequest()
+                        let objects = try context.fetch(fetchRequest)
+                        let video = objects.last
+                        var image: UIImage?
+                        if let thumbnail = video?.thumbnail {
+                            image = UIImage().toImage(data: thumbnail)
+                        }
+                        print("CoreData Success: \(objects)")
+                    } catch {
+                        print("Error CoreData: \(error)")
+                    }
+                }
+            }
+        }
     }
     
     func videoWriter(_ videoWriter: VideoWriter, didFailedWritingVideoWith error: Error) {
