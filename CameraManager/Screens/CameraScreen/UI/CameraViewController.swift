@@ -41,6 +41,14 @@ class CameraViewController: UIViewController {
             setButtonState(button: enabledCameraButton, authorizationStatus: cameraAuthorizationStatus)
             setButtonState(button: enabledMicrophoneButton, authorizationStatus: microphoneAuthorizationStatus)
         }
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(applicationChangeState), name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(applicationChangeState), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    @objc func applicationChangeState() {
+        viewModel?.applicationChangeState()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -55,6 +63,8 @@ class CameraViewController: UIViewController {
         }
     }
     
+    
+    
     private func setButtonState(button: UIButton, authorizationStatus: AVAuthorizationStatus) {
         if authorizationStatus == .denied {
             button.backgroundColor = .systemRed
@@ -64,17 +74,19 @@ class CameraViewController: UIViewController {
         }
     }
     
-    private func createAlert(title: String, message: String) -> UIAlertController {
+    private func createAlert(title: String, message: String, showSettings: Bool) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings",
-                                                                    comment: "Title for alert button settings"), style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-            
-            UIApplication.shared.canOpenURL(settingsUrl)
-            UIApplication.shared.open(settingsUrl, options: [:])
+        if showSettings {
+            let settingsAction = UIAlertAction(title: NSLocalizedString("Settings",
+                                                                        comment: "Title for alert button settings"), style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                
+                UIApplication.shared.canOpenURL(settingsUrl)
+                UIApplication.shared.open(settingsUrl, options: [:])
+            }
+            alertController.addAction(settingsAction)
         }
-        alertController.addAction(settingsAction)
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Title for alert button cancel"), style: .default, handler: nil)
         alertController.addAction(cancelAction)
@@ -106,9 +118,9 @@ class CameraViewController: UIViewController {
 
 // MARK: Extensions
 extension CameraViewController: ViewModelDisplayDelegate {
-    func showAlert(_ sender: ViewModelProtocol, title: String, message: String) {
+    func showAlert(_ sender: ViewModelProtocol, title: String, message: String, showSettings: Bool) {
         DispatchQueue.main.async {
-            let alertController = self.createAlert(title: title, message: message)
+            let alertController = self.createAlert(title: title, message: message, showSettings: showSettings)
             self.present(alertController, animated: true, completion: nil)
         }
     }

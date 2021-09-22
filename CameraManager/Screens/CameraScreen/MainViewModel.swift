@@ -9,6 +9,14 @@ import UIKit
 import AVFoundation
 import CoreData
 
+enum CameraState {
+    case initialized
+    case interrupted
+    case working
+    case writing
+    case stopped
+}
+
 class MainViewModel {
     weak var viewDelegate: ViewModelDisplayDelegate?
     
@@ -23,7 +31,13 @@ class MainViewModel {
     
     private var isFlashLightOn = false
     
-    private var uuidString: String = ""
+    private var video: Video?
+    
+    private var cameraState: CameraState? {
+        didSet {
+            cameraStateHandler()
+        }
+    }
     
     init() {
         do {
@@ -37,6 +51,67 @@ class MainViewModel {
         videoWriter = VideoWriter()
         videoWriter?.delegate = self
         cameraManager?.videoWriter = videoWriter
+    }
+    
+    func cameraStateHandler() {
+        guard let sessionState = cameraState else { return }
+        
+        switch sessionState {
+        case .initialized:
+            guard let cameraManager = cameraManager else { return }
+            viewDelegate?.showPreview(self, previewLayer: cameraManager.previewLayer)
+            if cameraManager.isFrontCamera() {
+                viewDelegate?.showFlashlight(self, isFrontCamera: true)
+            } else {
+                viewDelegate?.showFlashlight(self, isFrontCamera: false)
+            }
+        case .interrupted:
+            isRecording = !isRecording
+            viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+            saveVideo()
+            viewDelegate?.showAlert(self, title: "Session Interrupted", message: "Session was interrupted. Video file was saved.", showSettings: false)
+        case .writing:
+            saveVideo()
+        case .working:
+            break
+        case .stopped:
+            break
+        }
+    }
+    
+    func saveVideo() {
+        guard let url = video?.url else { return }
+        let thumbnail = ThumbnailGenerator.generateThumbnail(for: url)
+        
+        if let thumbnail = thumbnail {
+            video?.thumbnail = thumbnail.toData()
+        }
+        
+        do {
+            try video?.managedObjectContext?.save()
+        } catch {
+            print("Failure to save context: \(error)")
+        }
+        
+//        appDelegate.saveContext(backgroundContext: context)
+        
+        // Get data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        do {
+            let fetchRequest: NSFetchRequest<Video> = Video.fetchRequest()
+            let objects = try context.fetch(fetchRequest)
+            let video = objects.last
+            var image: UIImage?
+            
+            if let thumbnail = video?.thumbnail {
+                image = UIImage().toImage(data: thumbnail)
+            }
+            print("CoreData Success: \(objects)")
+        } catch {
+            print("Error CoreData: \(error)")
+        }
     }
 }
 
@@ -59,7 +134,7 @@ extension  MainViewModel: ViewModelProtocol {
         case .denied:
             self.viewDelegate?.showAlert(self,
                                          title: NSLocalizedString("AlertTitle", comment: "Title for error alert"),
-                                         message: NSLocalizedString("CameraReject", comment: "Description the alert"))
+                                         message: NSLocalizedString("CameraReject", comment: "Description the alert"), showSettings: true)
         default:
             return
         }
@@ -82,7 +157,7 @@ extension  MainViewModel: ViewModelProtocol {
         case .denied:
             self.viewDelegate?.showAlert(self,
                                          title: NSLocalizedString("AlertTitle", comment: "Title for error alert"),
-                                         message: NSLocalizedString("MicrophoneReject", comment: "Description the alert"))
+                                         message: NSLocalizedString("MicrophoneReject", comment: "Description the alert"), showSettings: true)
         default:
             return
         }
@@ -109,9 +184,23 @@ extension  MainViewModel: ViewModelProtocol {
     func didTapRecordButton() {
         isRecording = !isRecording
         if isRecording {
-            uuidString = UUID().uuidString
+            let uuidString = UUID().uuidString
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let url = documentDirectory.appendingPathComponent("\(uuidString).mp4")
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let context = appDelegate.persistentContainer.viewContext
+            
+            video = Video(context: context)
+            video?.creationAt = Date()
+            video?.url = url
+            video?.id = uuidString
+            
+            do {
+                try video?.managedObjectContext?.save()
+            } catch {
+                print("Failure to save context: \(error)")
+            }
             
             videoWriter?.startRecording(to: url)
         } else {
@@ -154,69 +243,36 @@ extension  MainViewModel: ViewModelProtocol {
             return .portrait
         }
     }
+    
+    func applicationChangeState() {
+        if cameraState == .working {
+            cameraState = .interrupted
+        }
+    }
 }
 
 extension MainViewModel: CameraCaptureDelegate {
     func cameraCaptureDidStart(_ capture: CameraManager) {
-        viewDelegate?.showPreview(self, previewLayer: capture.previewLayer)
-        if capture.isFrontCamera() {
-            viewDelegate?.showFlashlight(self, isFrontCamera: true)
-        } else {
-            viewDelegate?.showFlashlight(self, isFrontCamera: false)
-        }
+        cameraState = .initialized
     }
     
     func cameraCaptureDidStop(_ capture: CameraManager) {
-        
+        cameraState = .stopped
     }
 }
 
 extension MainViewModel: VideoWriterDelegate {
     func didBeginWriting(_ videoWriter: VideoWriter) {
         viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+        cameraState = .working
     }
     
     func videoWriter(_ videoWriter: VideoWriter, didStopWritingVideoTo url: URL) {
         viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
-//        viewDelegate?.showVideo(self, url: url)
-        
-        ThumbnailGenerator.shared.generateThumbnailRepresentations(url: url) { result in
-            if result {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                    let context = appDelegate.persistentContainer.viewContext
-                    
-                    let video = Video(context: context)
-                    video.creationAt = Date()
-                    video.id = self.uuidString
-                    
-                    if let thumbnail = ThumbnailGenerator.shared.thumbnailImage {
-                        video.thumbnail = thumbnail.toData()
-                    } else {
-                        video.thumbnail = Data()
-                    }
-                    
-                    video.url = url
-                    
-                    appDelegate.saveContext(backgroundContext: context)
-                    
-                    do {
-                        let fetchRequest: NSFetchRequest<Video> = Video.fetchRequest()
-                        let objects = try context.fetch(fetchRequest)
-                        let video = objects.last
-                        var image: UIImage?
-                        if let thumbnail = video?.thumbnail {
-                            image = UIImage().toImage(data: thumbnail)
-                        }
-                        print("CoreData Success: \(objects)")
-                    } catch {
-                        print("Error CoreData: \(error)")
-                    }
-                }
-            }
-        }
+        cameraState = .writing
     }
     
     func videoWriter(_ videoWriter: VideoWriter, didFailedWritingVideoWith error: Error) {
-        
+        print("VideoWriter Error: Error \(error)")
     }
 }

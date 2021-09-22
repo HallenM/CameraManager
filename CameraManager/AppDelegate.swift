@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try context.save()
         } catch let error as NSError {
+            context.rollback()
             print("Error: \(error), \(error.userInfo)")
         }
     }
