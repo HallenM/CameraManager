@@ -94,24 +94,6 @@ class MainViewModel {
         }
         
 //        appDelegate.saveContext(backgroundContext: context)
-        
-        // Get data
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
-        
-        do {
-            let fetchRequest: NSFetchRequest<Video> = Video.fetchRequest()
-            let objects = try context.fetch(fetchRequest)
-            let video = objects.last
-            var image: UIImage?
-            
-            if let thumbnail = video?.thumbnail {
-                image = UIImage().toImage(data: thumbnail)
-            }
-            print("CoreData Success: \(objects)")
-        } catch {
-            print("Error CoreData: \(error)")
-        }
     }
 }
 

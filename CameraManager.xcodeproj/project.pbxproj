@@ -27,6 +27,9 @@
 		F54CEDBB26FC4E0200928EE5 /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CEDBA26FC4E0200928EE5 /* VideoListViewModel.swift */; };
 		F54CEDC626FC54D700928EE5 /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CEDC426FC54D700928EE5 /* VideoListViewController.swift */; };
 		F54CEDC726FC54D700928EE5 /* VideoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54CEDC526FC54D700928EE5 /* VideoListViewController.xib */; };
+		F54CEDD426FC7EA200928EE5 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CEDD226FC7EA000928EE5 /* VideoItemCell.swift */; };
+		F54CEDD526FC7EA200928EE5 /* VideoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54CEDD326FC7EA000928EE5 /* VideoItemCell.xib */; };
+		F558ABC426FC9E2300F09BD0 /* VideoItemCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */; };
 		F5AB6D8426F30846005D45F7 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB6D8326F30846005D45F7 /* CoordinatorProtocol.swift */; };
 		F5AB6D8626F3099E005D45F7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB6D8526F3099E005D45F7 /* AppCoordinator.swift */; };
 		F5AB6D8B26F327F8005D45F7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F5AB6D8A26F327F8005D45F7 /* .swiftlint.yml */; };
@@ -84,6 +87,9 @@
 		F54CEDBA26FC4E0200928EE5 /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		F54CEDC426FC54D700928EE5 /* VideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
 		F54CEDC526FC54D700928EE5 /* VideoListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoListViewController.xib; sourceTree = "<group>"; };
+		F54CEDD226FC7EA000928EE5 /* VideoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
+		F54CEDD326FC7EA000928EE5 /* VideoItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoItemCell.xib; sourceTree = "<group>"; };
+		F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItemCellViewModel.swift; sourceTree = "<group>"; };
 		F5AB6D8326F30846005D45F7 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F5AB6D8526F3099E005D45F7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F5AB6D8726F3171A005D45F7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
@@ -191,6 +197,9 @@
 		F54CEDD126FC730500928EE5 /* VideoItemCell */ = {
 			isa = PBXGroup;
 			children = (
+				F54CEDD226FC7EA000928EE5 /* VideoItemCell.swift */,
+				F54CEDD326FC7EA000928EE5 /* VideoItemCell.xib */,
+				F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */,
 			);
 			path = VideoItemCell;
 			sourceTree = "<group>";
@@ -422,6 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54CEDD526FC7EA200928EE5 /* VideoItemCell.xib in Resources */,
 				F54CEDC726FC54D700928EE5 /* VideoListViewController.xib in Resources */,
 				F5AB6D8B26F327F8005D45F7 /* .swiftlint.yml in Resources */,
 				F518446826E605C900C233EC /* LaunchScreen.storyboard in Resources */,
@@ -475,6 +485,7 @@
 			files = (
 				F54CEDC626FC54D700928EE5 /* VideoListViewController.swift in Sources */,
 				F5AB6D8D26F32932005D45F7 /* UIViewController.swift in Sources */,
+				F54CEDD426FC7EA200928EE5 /* VideoItemCell.swift in Sources */,
 				F54CEDB626FC4DEA00928EE5 /* VideoListCoordinator.swift in Sources */,
 				F5AB6D8626F3099E005D45F7 /* AppCoordinator.swift in Sources */,
 				F5CD9ED226EF666400F1493C /* VideoWriter.swift in Sources */,
@@ -486,6 +497,7 @@
 				F518445E26E605C700C233EC /* SceneDelegate.swift in Sources */,
 				F5AB6D8426F30846005D45F7 /* CoordinatorProtocol.swift in Sources */,
 				F518448C26E6122B00C233EC /* MainViewModel.swift in Sources */,
+				F558ABC426FC9E2300F09BD0 /* VideoItemCellViewModel.swift in Sources */,
 				F50D9F2926E8A7CE00BDDC65 /* CameraManager.swift in Sources */,
 				F5125EA826F9CC13007DEFE3 /* ThumbnailGenerator.swift in Sources */,
 				F5C48A5D26F48489005E419F /* VideoModel.xcdatamodeld in Sources */,

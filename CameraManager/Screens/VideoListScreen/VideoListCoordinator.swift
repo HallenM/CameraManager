@@ -28,9 +28,16 @@ class VideoListCordinator: Coordinator {
         
         videoListViewModel = VideoListViewModel()
         videoListViewModel?.viewDelegate = videoListViewController
+        videoListViewModel?.actionDelegate = self
         
         videoListViewController.viewModel = videoListViewModel
         
         navigationController?.pushViewController(videoListViewController, animated: true)
+    }
+}
+
+extension VideoListCordinator: VideoListCordinatorActionDelegate {
+    func showVideo(_ sender: VideoListViewModelProtocol, video: Video) {
+        
     }
 }
