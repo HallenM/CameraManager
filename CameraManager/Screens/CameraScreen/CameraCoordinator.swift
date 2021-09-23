@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CameraCoordinator: Coordintator {
+class CameraCoordinator: Coordinator {
     
-    var childCoordinators: [Coordintator] = []
+    var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController?
     
@@ -34,5 +34,4 @@ class CameraCoordinator: Coordintator {
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
-
 }

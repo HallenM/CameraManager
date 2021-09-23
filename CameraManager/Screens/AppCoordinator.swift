@@ -7,9 +7,9 @@
 
 import UIKit
 
-class AppCoordinator: Coordintator {
+class AppCoordinator: Coordinator {
     
-    var childCoordinators: [Coordintator] = []
+    var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController?
     
@@ -30,6 +30,14 @@ class AppCoordinator: Coordintator {
         tabBarController.viewControllers = [cameraViewController]
         
         cameraCoordinator.start()
+        
+        let videoListCoordinator = VideoListCordinator()
+        childCoordinators.append(videoListCoordinator)
+        
+        guard let videoListViewController = videoListCoordinator.navigationController else { return }
+        tabBarController.viewControllers?.append(videoListViewController)
+        
+        videoListCoordinator.start()
         
         self.navigationController?.pushViewController(tabBarController, animated: true)
         
