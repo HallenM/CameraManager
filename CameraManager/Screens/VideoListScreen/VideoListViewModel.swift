@@ -10,13 +10,20 @@ import CoreData
 
 protocol VideoListViewModelProtocol: AnyObject {
     var viewDelegate: VideoListViewModelDisplayDelegate? { get set }
+    
+    func initVideoListViewModel()
+    
     func getCount() -> Int
     func getCellViewModel(index: Int) -> VideoItemCellViewModel
+    func getTitle(index: Int) -> String
+    
     func didTapOnCell(index: Int)
+    
+    func removeDataInCell(index: Int)
 }
 
 protocol VideoListViewModelDisplayDelegate: AnyObject {
-    
+    func removeCell(index: Int)
 }
 
 protocol VideoListCordinatorActionDelegate: AnyObject {
@@ -31,22 +38,20 @@ class VideoListViewModel: VideoListViewModelProtocol {
     private var cellViewModels: [VideoItemCellViewModel] = []
     
     init() {
+        initVideoListViewModel()
+    }
+    
+    func initVideoListViewModel() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         
         do {
             let fetchRequest: NSFetchRequest<Video> = Video.fetchRequest()
             let objects = try context.fetch(fetchRequest)
+            cellViewModels = []
             for object in objects {
                 cellViewModels.append(VideoItemCellViewModel(video: object))
             }
-            
-//            let video = objects.last
-//            var image: UIImage?
-//
-//            if let thumbnail = video?.thumbnail {
-//                image = UIImage().toImage(data: thumbnail)
-//            }
         } catch {
             print("Error CoreData: \(error)")
         }
@@ -60,6 +65,24 @@ class VideoListViewModel: VideoListViewModelProtocol {
         return cellViewModels[index]
     }
     
+    func getTitle(index: Int) -> String {
+        return cellViewModels[index].title ?? ""
+    }
+    
     func didTapOnCell(index: Int) {
+    }
+    
+    func removeDataInCell(index: Int) {
+        removeVideoInCodeData(index: index)
+        cellViewModels.remove(at: index)
+        viewDelegate?.removeCell(index: index)
+    }
+    
+    func removeVideoInCodeData(index: Int) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        context.delete(cellViewModels[index].videoData)
+        appDelegate.saveContext(backgroundContext: context)
     }
 }

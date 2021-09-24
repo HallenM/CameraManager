@@ -17,6 +17,7 @@ protocol ViewModelProtocol: AnyObject {
     func didTapSwitchCameraTypeButton()
     func didTapFlashlightButton()
     func didTapRecordButton()
+    
     func switchOrientation(orientation: UIDeviceOrientation)
     func applicationChangeState()
 }
@@ -25,8 +26,8 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func changeCameraButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
     func changeMicrophoneButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
     func cameraAndMicrophoneAccessGranted(_ sender: ViewModelProtocol)
-    func showAlert(_ sender: ViewModelProtocol, title: String, message: String, showSettings: Bool)
     
+    func showAlert(_ sender: ViewModelProtocol, title: String, message: String, showSettings: Bool)    
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
     func showVideo(_ sender: ViewModelProtocol, url: URL)

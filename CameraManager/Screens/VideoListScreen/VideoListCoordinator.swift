@@ -23,7 +23,7 @@ class VideoListCordinator: Coordinator {
     func start() {
         let videoListViewController = VideoListViewController.initFromNib()
         
-        let icon = UITabBarItem(title: "Video List", image: UIImage(systemName: "list"), selectedImage: UIImage(systemName: "listFilled"))
+        let icon = UITabBarItem(title: "Video List", image: UIImage(systemName: "tray"), selectedImage: UIImage(systemName: "tray.fill"))
         videoListViewController.tabBarItem = icon
         
         videoListViewModel = VideoListViewModel()

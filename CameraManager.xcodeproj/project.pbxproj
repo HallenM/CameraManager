@@ -30,6 +30,9 @@
 		F54CEDD426FC7EA200928EE5 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CEDD226FC7EA000928EE5 /* VideoItemCell.swift */; };
 		F54CEDD526FC7EA200928EE5 /* VideoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54CEDD326FC7EA000928EE5 /* VideoItemCell.xib */; };
 		F558ABC426FC9E2300F09BD0 /* VideoItemCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */; };
+		F5A26E8726FDEDC8001CC066 /* VideoPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5A26E8526FDEDC8001CC066 /* VideoPlayerViewController.xib */; };
+		F5A26E8826FDEDC8001CC066 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A26E8626FDEDC8001CC066 /* VideoPlayerViewController.swift */; };
+		F5A26E8A26FDEDDF001CC066 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A26E8926FDEDDF001CC066 /* VideoPlayerViewModel.swift */; };
 		F5AB6D8426F30846005D45F7 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB6D8326F30846005D45F7 /* CoordinatorProtocol.swift */; };
 		F5AB6D8626F3099E005D45F7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AB6D8526F3099E005D45F7 /* AppCoordinator.swift */; };
 		F5AB6D8B26F327F8005D45F7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F5AB6D8A26F327F8005D45F7 /* .swiftlint.yml */; };
@@ -90,6 +93,9 @@
 		F54CEDD226FC7EA000928EE5 /* VideoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
 		F54CEDD326FC7EA000928EE5 /* VideoItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoItemCell.xib; sourceTree = "<group>"; };
 		F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItemCellViewModel.swift; sourceTree = "<group>"; };
+		F5A26E8526FDEDC8001CC066 /* VideoPlayerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerViewController.xib; sourceTree = "<group>"; };
+		F5A26E8626FDEDC8001CC066 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		F5A26E8926FDEDDF001CC066 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		F5AB6D8326F30846005D45F7 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		F5AB6D8526F3099E005D45F7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F5AB6D8726F3171A005D45F7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
@@ -186,10 +192,9 @@
 			isa = PBXGroup;
 			children = (
 				F54CEDD126FC730500928EE5 /* VideoItemCell */,
-				F54CEDB526FC4DEA00928EE5 /* VideoListCoordinator.swift */,
 				F54CEDBA26FC4E0200928EE5 /* VideoListViewModel.swift */,
-				F54CEDC426FC54D700928EE5 /* VideoListViewController.swift */,
-				F54CEDC526FC54D700928EE5 /* VideoListViewController.xib */,
+				F54CEDB526FC4DEA00928EE5 /* VideoListCoordinator.swift */,
+				F5A26E8326FD949A001CC066 /* UI */,
 			);
 			path = VideoListScreen;
 			sourceTree = "<group>";
@@ -202,6 +207,33 @@
 				F558ABC326FC9E2300F09BD0 /* VideoItemCellViewModel.swift */,
 			);
 			path = VideoItemCell;
+			sourceTree = "<group>";
+		};
+		F5A26E8326FD949A001CC066 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F54CEDC426FC54D700928EE5 /* VideoListViewController.swift */,
+				F54CEDC526FC54D700928EE5 /* VideoListViewController.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		F5A26E8426FDED81001CC066 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F5A26E8926FDEDDF001CC066 /* VideoPlayerViewModel.swift */,
+				F5A26E8B26FDEDE2001CC066 /* UI */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		F5A26E8B26FDEDE2001CC066 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F5A26E8626FDEDC8001CC066 /* VideoPlayerViewController.swift */,
+				F5A26E8526FDEDC8001CC066 /* VideoPlayerViewController.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		F5AB6D7B26F3005D005D45F7 /* Extensions */ = {
@@ -219,6 +251,7 @@
 				F5AB6D8526F3099E005D45F7 /* AppCoordinator.swift */,
 				F5AB6D7F26F30102005D45F7 /* CameraScreen */,
 				F54CEDB426FC4C6400928EE5 /* VideoListScreen */,
+				F5A26E8426FDED81001CC066 /* VideoPlayer */,
 				F5AB6D8026F30115005D45F7 /* ModalScreen */,
 			);
 			path = Screens;
@@ -432,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F54CEDD526FC7EA200928EE5 /* VideoItemCell.xib in Resources */,
+				F5A26E8726FDEDC8001CC066 /* VideoPlayerViewController.xib in Resources */,
 				F54CEDC726FC54D700928EE5 /* VideoListViewController.xib in Resources */,
 				F5AB6D8B26F327F8005D45F7 /* .swiftlint.yml in Resources */,
 				F518446826E605C900C233EC /* LaunchScreen.storyboard in Resources */,
@@ -474,7 +508,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#if which swiftlint >/dev/null; then\n#  swiftlint\n#else\n#  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n#  exit 1\n#fi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -498,12 +532,14 @@
 				F5AB6D8426F30846005D45F7 /* CoordinatorProtocol.swift in Sources */,
 				F518448C26E6122B00C233EC /* MainViewModel.swift in Sources */,
 				F558ABC426FC9E2300F09BD0 /* VideoItemCellViewModel.swift in Sources */,
+				F5A26E8A26FDEDDF001CC066 /* VideoPlayerViewModel.swift in Sources */,
 				F50D9F2926E8A7CE00BDDC65 /* CameraManager.swift in Sources */,
 				F5125EA826F9CC13007DEFE3 /* ThumbnailGenerator.swift in Sources */,
 				F5C48A5D26F48489005E419F /* VideoModel.xcdatamodeld in Sources */,
 				F51E603726F0B0A30064F1B9 /* ModalViewController.swift in Sources */,
 				F5125EAA26F9DC3B007DEFE3 /* UIImage.swift in Sources */,
 				F52FFC6526E9C738008C54C3 /* CameraError.swift in Sources */,
+				F5A26E8826FDEDC8001CC066 /* VideoPlayerViewController.swift in Sources */,
 				F54CEDBB26FC4E0200928EE5 /* VideoListViewModel.swift in Sources */,
 				F5125EA626F99AF8007DEFE3 /* CameraCoordinator.swift in Sources */,
 			);
@@ -727,7 +763,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CameraManagerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -748,7 +784,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CameraManagerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

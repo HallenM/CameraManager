@@ -12,7 +12,11 @@ class VideoItemCellViewModel {
     var thumbnail: UIImage?
     var title: String?
     
+    var videoData: Video
+    
     init(video: Video) {
+        self.videoData = video
+        
         if let thumbnailImage = video.thumbnail,
            let creationAt = video.creationAt {
             thumbnail = UIImage().toImage(data: thumbnailImage)
