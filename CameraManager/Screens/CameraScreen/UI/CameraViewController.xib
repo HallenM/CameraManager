@@ -20,6 +20,7 @@
                 <outlet property="recordButton" destination="v74-sZ-LJJ" id="7C8-Ki-5gZ"/>
                 <outlet property="stackView" destination="drw-2l-8zF" id="TPQ-d8-m6b"/>
                 <outlet property="switchCameraTypeButton" destination="rtg-TX-HZJ" id="slQ-sB-hUp"/>
+                <outlet property="timerLabel" destination="EzJ-Vt-EQ5" id="9D7-q0-h06"/>
                 <outlet property="view" destination="UrD-Yb-hF4" id="N9g-BE-lgV"/>
             </connections>
         </placeholder>
@@ -72,6 +73,16 @@
                         <constraint firstItem="drw-2l-8zF" firstAttribute="leading" secondItem="e7m-4W-12Y" secondAttribute="leading" constant="15" id="l9t-cj-6Dd"/>
                     </constraints>
                 </view>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzJ-Vt-EQ5">
+                    <rect key="frame" x="15" y="764" width="385" height="30"/>
+                    <color key="backgroundColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="WGY-Q7-73e"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtg-TX-HZJ" userLabel="Switch Camera Button">
                     <rect key="frame" x="10" y="807" width="45" height="45"/>
                     <constraints>
@@ -113,8 +124,11 @@
                 <constraint firstItem="e7m-4W-12Y" firstAttribute="top" secondItem="zam-hC-mdo" secondAttribute="top" id="97v-Zl-zxz"/>
                 <constraint firstItem="v74-sZ-LJJ" firstAttribute="leading" secondItem="rtg-TX-HZJ" secondAttribute="trailing" constant="40" id="A4m-2A-99c"/>
                 <constraint firstItem="e7m-4W-12Y" firstAttribute="leading" secondItem="zam-hC-mdo" secondAttribute="leading" id="A7q-RR-IxQ"/>
+                <constraint firstItem="zam-hC-mdo" firstAttribute="trailing" secondItem="EzJ-Vt-EQ5" secondAttribute="trailing" constant="14" id="AjC-4T-Iav"/>
                 <constraint firstItem="wfx-O3-Hmt" firstAttribute="width" secondItem="rtg-TX-HZJ" secondAttribute="width" id="BKe-vq-xzU"/>
+                <constraint firstItem="v74-sZ-LJJ" firstAttribute="top" secondItem="EzJ-Vt-EQ5" secondAttribute="bottom" constant="10" id="BPN-pv-f9M"/>
                 <constraint firstItem="wfx-O3-Hmt" firstAttribute="leading" secondItem="v74-sZ-LJJ" secondAttribute="trailing" constant="40" id="HVV-J5-cUX"/>
+                <constraint firstItem="EzJ-Vt-EQ5" firstAttribute="leading" secondItem="zam-hC-mdo" secondAttribute="leading" constant="15" id="IqM-Rg-GjI"/>
                 <constraint firstItem="zam-hC-mdo" firstAttribute="trailing" secondItem="wfx-O3-Hmt" secondAttribute="trailing" constant="10" id="NvD-4h-iAI"/>
                 <constraint firstItem="zam-hC-mdo" firstAttribute="bottom" secondItem="wfx-O3-Hmt" secondAttribute="bottom" constant="10" id="Plh-nz-9Dc"/>
                 <constraint firstItem="zam-hC-mdo" firstAttribute="bottom" secondItem="rtg-TX-HZJ" secondAttribute="bottom" constant="10" id="SUj-IJ-iDm"/>

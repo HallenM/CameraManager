@@ -19,6 +19,7 @@ class CameraViewController: UIViewController {
     @IBOutlet private weak var switchCameraTypeButton: UIButton!
     @IBOutlet private weak var flashlightButton: UIButton!
     @IBOutlet private weak var recordButton: UIButton!
+    @IBOutlet private weak var timerLabel: UILabel!
     
     var viewModel: ViewModelProtocol?
     
@@ -170,6 +171,18 @@ extension CameraViewController: ViewModelDisplayDelegate {
         modalViewController.modalViewModel = modalViewModel
         
         self.present(modalViewController, animated: true, completion: nil)
+    }
+    
+    func showTimer(_ sender: ViewModelProtocol, isRecording: Bool) {
+        if isRecording {
+            timerLabel.isHidden = false
+        } else {
+            timerLabel.isHidden = true
+        }
+    }
+    
+    func updateTimer(_ sender: ViewModelProtocol, timerData: String) {
+        timerLabel.text = timerData
     }
     
     func didFlashlightChangeMode(_ sender: ViewModelProtocol) {

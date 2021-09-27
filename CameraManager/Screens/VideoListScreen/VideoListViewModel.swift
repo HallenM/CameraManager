@@ -70,6 +70,7 @@ class VideoListViewModel: VideoListViewModelProtocol {
     }
     
     func didTapOnCell(index: Int) {
+        actionDelegate?.showVideo(self, video: cellViewModels[index].videoData)
     }
     
     func removeDataInCell(index: Int) {

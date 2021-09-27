@@ -39,6 +39,10 @@ class MainViewModel {
         }
     }
     
+    private var timer = Timer()
+    
+    private var startRecordDate: Date?
+    
     init() {
         do {
             try cameraManager = CameraManager()
@@ -68,6 +72,8 @@ class MainViewModel {
         case .interrupted:
             isRecording = !isRecording
             viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+            viewDelegate?.showTimer(self, isRecording: isRecording)
+            stopTimer()
             saveVideo()
             viewDelegate?.showAlert(self, title: "Session Interrupted", message: "Session was interrupted. Video file was saved.", showSettings: false)
         case .writing:
@@ -92,8 +98,47 @@ class MainViewModel {
         } catch {
             print("Failure to save context: \(error)")
         }
+    }
+    
+    // MARK: Timer and its calulating
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(videoTimerTick), userInfo: nil, repeats: true)
+    }
+    
+    private var millisecond: Int = 0
+    private var second: Int = 0
+    private var minute: Int = 0
+    
+    @objc func videoTimerTick() {
+        let timerDate = calculateNewTimerState()
         
-//        appDelegate.saveContext(backgroundContext: context)
+        viewDelegate?.updateTimer(self, timerData: timerDate)
+    }
+    
+    func calculateNewTimerState() -> String {
+        let currentDate = Date()
+        let components = Set<Calendar.Component>([.second, .minute])
+        var dateDiff = ""
+        
+        if let startRecordDate = startRecordDate {
+            let differenceOfDate = Calendar.current.dateComponents(components, from: startRecordDate, to: currentDate)
+            
+            guard let minutes = differenceOfDate.minute, let seconds = differenceOfDate.second else { return "" }
+            
+            let milliseconds = Date().timeIntervalSince(startRecordDate) * 1000
+            
+            dateDiff = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds) + "." +
+                String(format: "%3d", milliseconds)
+        }
+        
+        return dateDiff
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+        millisecond = 0
+        second = 0
+        minute = 0
     }
 }
 
@@ -184,6 +229,8 @@ extension  MainViewModel: ViewModelProtocol {
                 print("Failure to save context: \(error)")
             }
             
+            startRecordDate = Date()
+            
             videoWriter?.startRecording(to: url)
         } else {
             videoWriter?.stopRecording()
@@ -246,11 +293,19 @@ extension MainViewModel: CameraCaptureDelegate {
 extension MainViewModel: VideoWriterDelegate {
     func didBeginWriting(_ videoWriter: VideoWriter) {
         viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+        
+        viewDelegate?.showTimer(self, isRecording: isRecording)
+        startTimer()
+        
         cameraState = .working
     }
     
     func videoWriter(_ videoWriter: VideoWriter, didStopWritingVideoTo url: URL) {
         viewDelegate?.didChangeRecordState(self, isRecording: isRecording)
+        
+        viewDelegate?.showTimer(self, isRecording: isRecording)
+        stopTimer()
+        
         cameraState = .writing
     }
     

@@ -14,6 +14,7 @@ class VideoListCordinator: Coordinator {
     var navigationController: UINavigationController?
     
     private var videoListViewModel: VideoListViewModel?
+    private var videoPlayerViewModel: VideoPlayerViewModel?
     
     init(navigationController: UINavigationController = UINavigationController()) {
         self.navigationController = navigationController
@@ -38,6 +39,11 @@ class VideoListCordinator: Coordinator {
 
 extension VideoListCordinator: VideoListCordinatorActionDelegate {
     func showVideo(_ sender: VideoListViewModelProtocol, video: Video) {
+        let videoPlayerViewController = VideoPlayerViewController.initFromNib()
         
+        videoPlayerViewModel = VideoPlayerViewModel(video: video)
+        videoPlayerViewController.playerViewModel = videoPlayerViewModel
+        
+        navigationController?.pushViewController(videoPlayerViewController, animated: true)
     }
 }

@@ -26,6 +26,8 @@ class VideoListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         // Add refreshControll for refreshing
         videoTableView.refreshControl = UIRefreshControl()
         videoTableView.refreshControl?.attributedTitle = NSAttributedString(string: "Updating...")

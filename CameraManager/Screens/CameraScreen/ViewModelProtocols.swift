@@ -31,6 +31,8 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
     func showVideo(_ sender: ViewModelProtocol, url: URL)
+    func showTimer(_ sender: ViewModelProtocol, isRecording: Bool)
+    func updateTimer(_ sender: ViewModelProtocol, timerData: String)
     
     func didChangeCameraOrientation(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func didFlashlightChangeMode(_ sender: ViewModelProtocol)
