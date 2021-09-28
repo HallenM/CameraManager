@@ -125,10 +125,10 @@ class MainViewModel {
             
             guard let minutes = differenceOfDate.minute, let seconds = differenceOfDate.second else { return "" }
             
-            let milliseconds = Date().timeIntervalSince(startRecordDate) * 1000
+            let milliseconds = Int(currentDate.timeIntervalSince(startRecordDate) * 1000)
             
             dateDiff = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds) + "." +
-                String(format: "%3d", milliseconds)
+                String(format: "%003d", milliseconds)
         }
         
         return dateDiff
