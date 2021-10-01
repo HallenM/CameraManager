@@ -43,10 +43,14 @@ class MainViewModel {
     
     private var startRecordDate: Date?
     
+    var timerDataString = "00:00.000"
+    
     init() {
         do {
-            try cameraManager = CameraManager()
+            let videoProcessor = VideoProcessor()
+            try cameraManager = CameraManager(videoProcessor: videoProcessor)
             cameraManager?.delegate = self
+            cameraManager?.dataDelegate = self
             checkCameraAndMicAuthorization()
         } catch {
             print(CameraError(code: 404,
@@ -105,40 +109,32 @@ class MainViewModel {
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(videoTimerTick), userInfo: nil, repeats: true)
     }
     
-    private var millisecond: Int = 0
-    private var second: Int = 0
-    private var minute: Int = 0
-    
     @objc func videoTimerTick() {
-        let timerDate = calculateNewTimerState()
+        calculateNewTimerState()
         
-        viewDelegate?.updateTimer(self, timerData: timerDate)
+        viewDelegate?.updateTimer(self, timerData: timerDataString)
     }
     
-    func calculateNewTimerState() -> String {
+    func calculateNewTimerState() {
         let currentDate = Date()
         let components = Set<Calendar.Component>([.second, .minute])
-        var dateDiff = ""
         
         if let startRecordDate = startRecordDate {
             let differenceOfDate = Calendar.current.dateComponents(components, from: startRecordDate, to: currentDate)
             
-            guard let minutes = differenceOfDate.minute, let seconds = differenceOfDate.second else { return "" }
+            guard let minutes = differenceOfDate.minute, let seconds = differenceOfDate.second else { return }
             
-            let milliseconds = Int(currentDate.timeIntervalSince(startRecordDate) * 1000)
+            let milliseconds = Int(currentDate.timeIntervalSince(startRecordDate) * 1000) % 1000
             
-            dateDiff = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds) + "." +
+            timerDataString = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds) + "." +
                 String(format: "%003d", milliseconds)
         }
         
-        return dateDiff
     }
     
     func stopTimer() {
         timer.invalidate()
-        millisecond = 0
-        second = 0
-        minute = 0
+        timerDataString = "00:00.000"
     }
 }
 

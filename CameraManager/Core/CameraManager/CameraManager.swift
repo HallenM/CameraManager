@@ -18,6 +18,7 @@ class CameraManager: NSObject {
     var previewLayer: AVCaptureVideoPreviewLayer
     
     weak var delegate: CameraCaptureDelegate?
+    weak var dataDelegate: ViewModelProtocol?
     
     private var videoDevice: AVCaptureDevice?
     private var audioDevice: AVCaptureDevice?
@@ -29,6 +30,7 @@ class CameraManager: NSObject {
     private(set) var session: AVCaptureSession?
     
     weak var videoWriter: VideoWriter?
+    let videoProcessor: VideoProcessor
     
     var isRunning: Bool {
         return session?.isRunning ?? false
@@ -54,12 +56,14 @@ class CameraManager: NSObject {
     }
     
     init(devicePosition: AVCaptureDevice.Position = .front,
-         preset: AVCaptureSession.Preset = .high) throws {
+         preset: AVCaptureSession.Preset = .high,
+         videoProcessor: VideoProcessor) throws {
         #if targetEnvironment(simulator)
             throw CameraError(code: 505,
                               description: "Simulator don't work with video")
         #endif
         
+        self.videoProcessor = videoProcessor
         self.devicePosition = devicePosition
         self.preset = preset
         
@@ -290,9 +294,15 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         let sampleTime = CMSampleBufferGetPresentationTimeStamp(buffer)
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) else { return }
-              
-        try? self.videoWriter?.addPixelBuffer(pixelBuffer, sampleTime: sampleTime)
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer),
+              let timerDataString = dataDelegate?.timerDataString,
+              let burnedBuffer = videoProcessor.modifiedBuffer(imageBuffer: pixelBuffer,
+                                                               videoProcessorTimerText: timerDataString,
+                                                               videoProcessorTextColor: UIColor.black) else {
+            return
+        }
+
+        try? self.videoWriter?.addPixelBuffer(burnedBuffer, sampleTime: sampleTime)
     }
 }
 

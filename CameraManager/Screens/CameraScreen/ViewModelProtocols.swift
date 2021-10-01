@@ -11,6 +11,7 @@ import UIKit
 protocol ViewModelProtocol: AnyObject {
     var viewDelegate: ViewModelDisplayDelegate? { get set }
     var previewLayer: AVCaptureVideoPreviewLayer? { get }
+    var timerDataString: String { get set }
     
     func didTapEnabledCameraButton()
     func didTapEnabledMicrophoneButton()
@@ -26,7 +27,7 @@ protocol ViewModelDisplayDelegate: AnyObject {
     func changeCameraButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
     func changeMicrophoneButton(_ sender: ViewModelProtocol, authorizationStatus: AVAuthorizationStatus)
     func cameraAndMicrophoneAccessGranted(_ sender: ViewModelProtocol)
-    
+
     func showAlert(_ sender: ViewModelProtocol, title: String, message: String, showSettings: Bool)    
     func showPreview(_ sender: ViewModelProtocol, previewLayer: AVCaptureVideoPreviewLayer)
     func showFlashlight(_ sender: ViewModelProtocol, isFrontCamera: Bool)
