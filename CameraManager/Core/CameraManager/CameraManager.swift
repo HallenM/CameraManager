@@ -303,6 +303,7 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
 
         try? self.videoWriter?.addPixelBuffer(burnedBuffer, sampleTime: sampleTime)
+//        try? self.videoWriter?.addPixelBuffer(pixelBuffer, sampleTime: sampleTime)
     }
 }
 

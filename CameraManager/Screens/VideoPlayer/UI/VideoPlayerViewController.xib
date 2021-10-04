@@ -25,20 +25,23 @@
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-N5-yk4">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bp3-UA-Wjm" userLabel="Player View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="734"/>
+                        <view contentMode="scaleToFill" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bp3-UA-Wjm" userLabel="Player View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="bp3-UA-Wjm" secondAttribute="height" multiplier="1:1.5" id="ncF-YF-h7d"/>
+                            </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AQ-TU-8rx" userLabel="Info View">
-                            <rect key="frame" x="0.0" y="742" width="414" height="76"/>
+                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="8AQ-TU-8rx" userLabel="Info View">
+                            <rect key="frame" x="0.0" y="629" width="414" height="189"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-qz-eH1">
-                                    <rect key="frame" x="10" y="0.0" width="394" height="39.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-qz-eH1">
+                                    <rect key="frame" x="10" y="0.0" width="394" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created at:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQM-f8-N0C">
-                                    <rect key="frame" x="10" y="47.5" width="394" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Created at:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQM-f8-N0C">
+                                    <rect key="frame" x="10" y="28.5" width="394" height="152.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="highlightedColor"/>
                                 </label>

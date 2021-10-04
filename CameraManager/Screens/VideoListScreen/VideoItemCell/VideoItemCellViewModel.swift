@@ -22,7 +22,7 @@ class VideoItemCellViewModel {
             thumbnail = UIImage().toImage(data: thumbnailImage)
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-mm-yy hh:MM:ss"
+            dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
             title = dateFormatter.string(from: creationAt)
         }
     }

@@ -27,7 +27,7 @@ class VideoPlayerViewModel {
         var creationAtString: String?
         if let creationAt = video.creationAt {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-mm-yy hh:MM:ss"
+            dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
             creationAtString = dateFormatter.string(from: creationAt)
         }
         return creationAtString ?? ""
