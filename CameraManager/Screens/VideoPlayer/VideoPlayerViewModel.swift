@@ -16,11 +16,18 @@ class VideoPlayerViewModel {
     }
     
     func getUrl() -> URL {
+        if let lastPathComponent = video.url?.lastPathComponent {
+            return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(lastPathComponent)
+        }
         return video.url ?? URL(fileURLWithPath: "")
     }
     
     func getTitle() -> String {
-        return video.id ?? ""
+        if let title = video.id {
+        return "Title: " + title
+        } else {
+            return ""
+        }
     }
     
     func getCreationTime() -> String {
@@ -30,6 +37,11 @@ class VideoPlayerViewModel {
             dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
             creationAtString = dateFormatter.string(from: creationAt)
         }
-        return creationAtString ?? ""
+        
+        if let creationAtString = creationAtString {
+            return "Created at: " + creationAtString
+        } else {
+            return ""
+        }
     }
 }

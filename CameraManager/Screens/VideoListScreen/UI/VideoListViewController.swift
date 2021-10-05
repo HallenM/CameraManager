@@ -32,11 +32,16 @@ class VideoListViewController: UIViewController {
         videoTableView.refreshControl = UIRefreshControl()
         videoTableView.refreshControl?.attributedTitle = NSAttributedString(string: "Updating...")
         videoTableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        reloadData()
     }
     
     // Sender for refreshing data in table
     @objc func handleRefreshControl(sender: AnyObject) {
-        
+        reloadData()
+    }
+    
+    func reloadData() {
         viewModel?.initVideoListViewModel()
         DispatchQueue.main.async {
             self.videoTableView.reloadData()

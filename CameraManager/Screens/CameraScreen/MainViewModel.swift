@@ -208,6 +208,7 @@ extension  MainViewModel: ViewModelProtocol {
         isRecording = !isRecording
         if isRecording {
             let uuidString = UUID().uuidString
+            
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let url = documentDirectory.appendingPathComponent("\(uuidString).mp4")
             

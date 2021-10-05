@@ -52,6 +52,7 @@ class VideoListViewModel: VideoListViewModelProtocol {
             for object in objects {
                 cellViewModels.append(VideoItemCellViewModel(video: object))
             }
+            cellViewModels = cellViewModels.sorted(by: { $0.videoData.creationAt ?? Date() > $1.videoData.creationAt ?? Date() })
         } catch {
             print("Error CoreData: \(error)")
         }

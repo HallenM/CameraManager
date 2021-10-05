@@ -22,6 +22,24 @@ class VideoPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(playerInfinityPlaying(notification:)),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: player?.currentItem)
+        
+        setVideoInfo()
+        
+        print(playerView.layer.bounds)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         if let url = playerViewModel?.getUrl() {
             player = AVPlayer(url: url)
             
@@ -34,27 +52,16 @@ class VideoPlayerViewController: UIViewController {
             player?.play()
             
             player?.actionAtItemEnd = .none
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(playerInfinityPlaying(notification:)),
-                                                   name: .AVPlayerItemDidPlayToEndTime,
-                                                   object: player?.currentItem)
-            
-            setVideoInfo()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = false
+        print(playerView.layer.bounds)
     }
     
     func setVideoInfo() {
         if let title = playerViewModel?.getTitle(),
            let createdAt = playerViewModel?.getCreationTime() {
-            titleLabel.text = titleLabel.text! + " " + title
-            creationAtLabel.text = creationAtLabel.text! + " " + createdAt
+            titleLabel.text = title
+            creationAtLabel.text = createdAt
         }
     }
     

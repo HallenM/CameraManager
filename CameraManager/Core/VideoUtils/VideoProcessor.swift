@@ -22,8 +22,8 @@ class VideoProcessor {
         guard let timerCIImage = createImage(from: timerString) else { return nil }
         let timerImage = UIImage(ciImage: timerCIImage)
         
-        let resultImage = drawLogoIn(image: frameImage, logo: timerImage, position: CGPoint(x: /*frameImage.size.width - */timerImage.size.width + 5,
-                                                                                            y: /*frameImage.size.height - */timerImage.size.height + 5))
+        let resultImage = drawLogoIn(image: frameImage, logo: timerImage, position: CGPoint(x: frameImage.size.width/2 - timerImage.size.width,
+                                                                                            y: frameImage.size.height - frameImage.size.height/15 - timerImage.size.height))
         
         guard let resultCIImage = CIImage(image: resultImage) else { return nil }
         
@@ -60,7 +60,7 @@ class VideoProcessor {
         
         return renderer.image { context in
             image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-            logo.draw(in: CGRect(origin: position, size: CGSize(width: image.size.width/5, height: image.size.height/20)))
+            logo.draw(in: CGRect(origin: position, size: CGSize(width: image.size.width/4, height: image.size.height/15)))
         }
     }
 }
