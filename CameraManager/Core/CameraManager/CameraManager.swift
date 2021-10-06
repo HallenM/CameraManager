@@ -298,7 +298,7 @@ extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
               let timerDataString = dataDelegate?.timerDataString,
               let burnedBuffer = videoProcessor.modifiedBuffer(imageBuffer: pixelBuffer,
                                                                videoProcessorTimerText: timerDataString,
-                                                               videoProcessorTextColor: UIColor.black) else {
+                                                               videoProcessorTextColor: UIColor.white) else {
             return
         }
 
